@@ -1,19 +1,18 @@
-import React, { memo } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './components/Home';
+import ProductList from './components/ProductList';
+import AddProduct from './components/AddProduct';
 
-const ProductList = ({ products }) => {
-  console.log('ProductList rendered'); // Performans izleme için
-
+function App() {
   return (
-    <div>
-      {products.map(product => (
-        <div key={product.id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>Price: {product.price}</p>
-        </div>
-      ))}
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/products" component={ProductList} />
+        <Route path="/add-product" component={AddProduct} />
+      </Switch>
+    </Router>
   );
-};
+}
 
-export default memo(ProductList);
+export default App;
