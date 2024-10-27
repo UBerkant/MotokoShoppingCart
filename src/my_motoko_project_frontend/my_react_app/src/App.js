@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { memo } from 'react';
 
-function App() {
+const ProductList = ({ products }) => {
+  console.log('ProductList rendered'); // Performans izleme için
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {products.map(product => (
+        <div key={product.id}>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          <p>Price: {product.price}</p>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
-export default App;
+export default memo(ProductList);
