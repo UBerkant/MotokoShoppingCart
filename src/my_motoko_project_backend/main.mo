@@ -1,4 +1,4 @@
-import Hash "mo:base/Hash";
+import Array "mo:base/Array";
 import HashMap "mo:base/HashMap";
 import Iter "mo:base/Iter";
 import Nat "mo:base/Nat";
@@ -14,10 +14,9 @@ actor {
     };
 
     private stable var nextProductId: Nat = 0;
-    // Basit bir hash fonksiyonu kullanarak HashMap'i tanımlıyoruz
-    private var products = HashMap.HashMap<Nat, Product>(0, Nat.equal, Hash.hash); 
+    private var products = HashMap.HashMap<Nat, Product>(0, Nat.equal);
 
-    public shared(_msg) func addProduct(name: Text, price: Nat, description: Text) : async Nat {
+    public shared(msg) func addProduct(name: Text, price: Nat, description: Text) : async Nat {
         let productId = nextProductId;
         let product: Product = {
             id = productId;
@@ -38,10 +37,10 @@ actor {
     };
 
     public query func getProduct(id: Nat) : async ?Product {
-        return products.get(id);
+        products.get(id);
     };
 
-    public shared(_msg) func updateStockStatus(id: Nat, inStock: Bool) : async Bool {
+    public shared(msg) func updateStockStatus(id: Nat, inStock: Bool) : async Bool {
         switch (products.get(id)) {
             case (null) { false };
             case (?product) {
